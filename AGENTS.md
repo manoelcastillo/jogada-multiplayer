@@ -7,6 +7,7 @@ The production application and future licensed source distribution are separate.
 
 - Keep this repository focused on public documentation, original diagrams, and GitHub community files.
 - Do not copy application source, Terraform implementation, credentials, state files, customer data, or operational logs here.
+- Sanitized evaluation reports and original media may be published with their source versions, method, and limitations; never include authentication tokens or raw operational logs.
 - Do not modify sibling Jogada repositories as part of a showcase documentation task.
 - Preserve the repository's visibility unless the user explicitly requests a change.
 
@@ -20,6 +21,7 @@ The production application and future licensed source distribution are separate.
 - Describe deployments as match continuity with possible connection recovery, subject to version compatibility.
 - Redis Pub/Sub is live fan-out, not a durable event queue. Clients connect to Java over STOMP.
 - Do not invent prices, release dates, private repository URLs, benchmarks, certifications, SLAs, testimonials, or working commands.
+- Keep owner-only launch drafts and commercial proposals in the ignored `.launch/` directory. Do not stage them or private source archives.
 - Use contato@jogada.com.br for public enquiries. Keep commercial conversations out of public issues.
 
 ## Verification

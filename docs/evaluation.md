@@ -6,9 +6,10 @@ Evaluate behavior in a local harness or an explicitly designated staging
 environment. The [live game](https://app.jogada.com.br/) is available for normal
 play; it is not a load-testing or fault-injection target.
 
-This guide is an evaluation procedure, not a report that these exercises were
-run against a commercial release. Ask for release-specific evidence when
-evaluating a purchase.
+This guide is an evaluation procedure. A [published local recovery report](recovery-evaluation.md)
+records worker loss and client WebSocket interruption for identified source versions.
+It does not establish that every exercise below was run against a packaged commercial
+release. Ask for release-specific evidence when evaluating a purchase.
 
 ## Record the environment
 
@@ -80,6 +81,7 @@ success is not a substitute for exercising billing.
 | Fresh-workspace installation | A developer can run the licensed release using only its documented prerequisites |
 | Workload benchmark | Versions, infrastructure, concurrent connections and matches, action rate, latency distribution, errors, duration, and methodology |
 
-No benchmark numbers or deployment recordings are published in this repository
-yet. The architecture documents describe mechanisms; numerical claims require
-their own reproducible evidence.
+The [local report and recording](recovery-evaluation.md) provide functional recovery
+evidence with source versions and observed intervals. No workload benchmark or AWS
+rolling deployment record is published here. Numerical guarantees require their
+own methodology and agreement.

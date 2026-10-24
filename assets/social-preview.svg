@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">Jogada Multiplayer — match state outlives the worker</title>
+  <desc id="desc">Flutter clients, authoritative Java workers, shared Redis state and Pub/Sub. Self-hosted multiplayer infrastructure for card and turn-based games.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#102238"/><stop offset="1" stop-color="#153d43"/></linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#77c9b0" stroke-opacity=".055"/></pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10" fill="none" stroke="#87d7bb" stroke-width="1.7"/></marker>
+  </defs>
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <rect width="1280" height="640" fill="url(#grid)"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="64" y="54" width="7" height="31" rx="3" fill="#87d7bb"/>
+    <text x="87" y="79" fill="#e6f4f0" font-size="26" font-weight="700">JOGADA MULTIPLAYER</text>
+    <text x="64" y="166" fill="#fff" font-size="54" font-weight="700">Match state outlives</text>
+    <text x="64" y="229" fill="#87d7bb" font-size="54" font-weight="700">the worker.</text>
+    <text x="64" y="279" fill="#bfd0df" font-size="22">Self-hosted infrastructure for card and turn-based games</text>
+
+    <rect x="64" y="331" width="272" height="130" rx="13" fill="#142f43" stroke="#4c7080"/>
+    <text x="88" y="368" fill="#8dd8c6" font-size="15" font-weight="700" letter-spacing="1">CROSS-PLATFORM CLIENT</text>
+    <text x="88" y="405" fill="#fff" font-size="26" font-weight="700">Flutter + Riverpod</text>
+    <text x="88" y="435" fill="#bfd0df" font-size="17">Android · iOS · Web/PWA</text>
+
+    <path d="M349 396H397" stroke="#87d7bb" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="412" y="331" width="357" height="130" rx="13" fill="#142f43" stroke="#4c7080"/>
+    <text x="436" y="368" fill="#8dd8c6" font-size="15" font-weight="700" letter-spacing="1">AUTHORITATIVE JAVA</text>
+    <g fill="#204858" stroke="#5f8b96"><rect x="436" y="387" width="95" height="42" rx="6"/><rect x="543" y="387" width="95" height="42" rx="6"/><rect x="650" y="387" width="95" height="42" rx="6"/></g>
+    <g fill="#fff" font-size="17" text-anchor="middle"><text x="483" y="414">Worker A</text><text x="590" y="414">Worker B</text><text x="697" y="414">Worker N</text></g>
+
+    <path d="M782 396H830" stroke="#87d7bb" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="845" y="331" width="371" height="130" rx="13" fill="#142f43" stroke="#4c7080"/>
+    <text x="869" y="368" fill="#8dd8c6" font-size="15" font-weight="700" letter-spacing="1">SHARED LIVE STATE</text>
+    <text x="869" y="405" fill="#fff" font-size="26" font-weight="700">Redis + Pub/Sub</text>
+    <text x="869" y="435" fill="#bfd0df" font-size="17">State recovery across workers</text>
+
+    <path d="M64 507H1216" stroke="#547785" stroke-opacity=".65"/>
+    <text x="64" y="550" fill="#e6f4f0" font-size="20">AWS Fargate + Terraform</text>
+    <text x="1216" y="550" fill="#87d7bb" font-size="20" text-anchor="end">Architecture · Live game · Commercial licensing</text>
+    <text x="64" y="591" fill="#9cb4c5" font-size="17">github.com/manoelcastillo/jogada-multiplayer</text>
+  </g>
+</svg>

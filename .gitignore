@@ -27,3 +27,6 @@ Thumbs.db
 
 # Local render output
 .preview/
+
+# Owner-only launch drafts, commercial proposals, and lead notes
+.launch/

@@ -1,7 +1,7 @@
 # Maintainer launch checklist
 
-This is a preparation checklist, not a record of completed commercial release
-validation. Keep the repository private until the owner requests publication.
+Updated 25 October 2026. The owner has published the showcase. Commercial source
+delivery remains a separate release with its own acceptance gates.
 
 ## Showcase foundation
 
@@ -12,22 +12,28 @@ validation. Keep the repository private until the owner requests publication.
 - [x] Use the real production game URL and actual source-workspace commands rather than invented clone links or launchers.
 - [x] Add documentation feedback and private-reporting instructions.
 
-## Before making the showcase public
+## Public showcase and launch assets
 
 - [ ] Confirm the copyright owner shown in LICENSE.md; it currently names Manoel Castillo.
 - [ ] Confirm the contact inbox receives licensing enquiries and has an appropriate owner.
 - [ ] Review every capability against the source release intended for distribution.
-- [ ] Decide whether to publish the current early-access positioning or wait for a purchasable release.
-- [ ] Add an approved recording demonstrating worker replacement and client recovery, or retain the explicit statement that no recording is published yet.
-- [ ] Review the rendered README, diagram, all links, and the GitHub issue form.
-- [ ] Review the staged files and history for material that does not belong in a public showcase.
-- [ ] Set the GitHub About description, website, and topics.
-- [ ] Change visibility only when explicitly requested by the repository owner.
+- [x] Publish the showcase with accurate early-access positioning; the owner made it public.
+- [x] Record two real Flutter clients, worker loss, and client WebSocket recovery in an isolated local environment.
+- [x] Publish the recording with source revisions, assertions, measured observations, and explicit limits.
+- [x] Add an engineering article explaining match continuity and deployment compatibility.
+- [x] Set the GitHub About description, live-game website, and developer topics.
+- [x] Prepare the original 1280×640 social preview image and editable SVG.
+- [ ] Upload `assets/social-preview.png` in GitHub Settings → Social preview; the available browser session was signed out.
+- [x] Prepare owner-only Product Hunt copy, announcements, qualification replies, a lead tracker, and a founding-offer proposal in the ignored local `.launch/` directory.
+- [ ] Review and send the first technical announcements from the owner's selected profiles; none were sent by the agent.
+- [ ] Conduct 3–5 qualified project conversations and record adoption requirements privately.
 
 ## Before accepting a commercial purchase
 
-- [ ] Prepare a clean private source distribution without production credentials, customer records, or operational history.
-- [ ] Verify installation from a fresh workspace using only the release's documented prerequisites.
+- [x] Prepare private committed-source archives outside this public repository, without Git history or ignored files, and record checksums. These are internal candidates, not delivery-approved releases.
+- [x] Build and run matching server/client source from fresh extractions with isolated local data services.
+- [ ] Sanitize and approve the final private distribution: production-specific configuration, integrations, assets, dependencies, and documentation.
+- [ ] Verify installation on an independent clean machine using only the release's documented prerequisites.
 - [ ] Exercise cross-worker play, reconnection, worker replacement, and a compatible rollout for the offered versions.
 - [ ] Confirm native platform, offline, and billing claims against the release being sold.
 - [ ] Verify the game engine plugin architecture, add/remove/manage behavior, and integration documentation before delivering any licensed server.
@@ -43,10 +49,13 @@ Description:
 
 > Production-proven multiplayer infrastructure for card and turn-based games: Flutter, authoritative Java servers, Redis, and AWS Fargate/Terraform. Architecture, demos, and commercial licensing.
 
-Website: `https://jogada.com.br/`
+Website: `https://app.jogada.com.br/`
 
 Topics: `flutter`, `dart`, `java`, `spring-boot`, `redis`, `websocket`, `stomp`,
 `multiplayer`, `card-game`, `aws-fargate`, `terraform`, `self-hosted`.
 
 Future distribution shape is a packaging decision. Do not publish fictional
 Core/Plugins directories or a private repository URL before they exist.
+
+The owner-only draft offer is not a public price or binding license. Keep the
+public enquiry path quote-based until the owner adopts final scope and terms.

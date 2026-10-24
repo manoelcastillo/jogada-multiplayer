@@ -16,6 +16,16 @@ Java validates online play. Redis holds live match state outside the application
 
 [Request early access](mailto:contato@jogada.com.br?subject=Jogada%20Multiplayer%20-%20Early%20access) · [Try the live game](https://app.jogada.com.br/) · [Read the architecture](docs/architecture.md) · [Licensing and access](docs/licensing-and-access.md)
 
+## See recovery in a real client
+
+[![Two Flutter clients in a local recovery evaluation](assets/demo/recovery-poster.png)](assets/demo/recovery.mp4)
+
+**[Watch the 18-second recording](assets/demo/recovery.mp4)** · [Read the test report](docs/recovery-evaluation.md) · [Engineering explanation](docs/engineering/match-continuity.md)
+
+Two real Flutter web clients join one match through different Java workers. One worker is stopped; the affected client reconnects and recovers the same match and selected player-visible state. A second scenario closes a client's WebSocket and verifies automatic recovery again.
+
+Both scenarios passed in an isolated local run on 25 October 2026. The report identifies source versions, configuration, checks, and limits. This is functional evidence; AWS rollout, workload capacity, native platforms, billing, and plugin integration need their own release acceptance checks.
+
 ## Built for
 
 - Developers building an authoritative card or turn-based game with a Flutter client.
@@ -154,7 +164,7 @@ For technical evaluation in a local or dedicated staging environment:
 4. Confirm that client reconnects and resumes the same match.
 5. Disconnect and reconnect a client, then inspect the recovered server state.
 
-The [evaluation guide](docs/evaluation.md) defines what to record, how to distinguish a committed move from an unacknowledged attempt, and what deployment evidence to request. No capacity, recovery-time, uptime, or support SLA is claimed by this showcase.
+The [evaluation guide](docs/evaluation.md) defines what to record, how to distinguish a committed move from an unacknowledged attempt, and what deployment evidence to request. The [published local evaluation](docs/recovery-evaluation.md) records one observed recovery run. No capacity, recovery-time, uptime, or support SLA is claimed by this showcase.
 
 ## Commercial licensing and access
 
@@ -178,6 +188,8 @@ To request access, email **[contato@jogada.com.br](mailto:contato@jogada.com.br?
 | [Architecture](docs/architecture.md) | Authority, state flow, shared state, fan-out, and failure boundaries |
 | [Local development](docs/local-development.md) | Source workspace commands and local environment behavior |
 | [Technical evaluation](docs/evaluation.md) | Reconnection, worker replacement, deployment, and evidence |
+| [Recorded recovery evaluation](docs/recovery-evaluation.md) | A real local run, source versions, assertions, and limitations |
+| [Match continuity explained](docs/engineering/match-continuity.md) | How shared state and snapshot recovery separate match lifetime from connection lifetime |
 | [Licensing and access](docs/licensing-and-access.md) | Commercial enquiries, delivery, rights, and support boundaries |
 | [FAQ](docs/faq.md) | Source availability, offline play, customization, hosting, and security claims |
 
@@ -191,11 +203,21 @@ jogada-multiplayer/
 ├── SECURITY.md
 ├── AGENTS.md
 ├── assets/
-│   └── architecture.svg
+│   ├── architecture.svg
+│   ├── social-preview.svg
+│   ├── social-preview.png
+│   └── demo/
+│       ├── README.md
+│       ├── recovery.mp4
+│       ├── recovery-poster.png
+│       └── evaluation.json
 ├── docs/
 │   ├── architecture.md
 │   ├── local-development.md
 │   ├── evaluation.md
+│   ├── recovery-evaluation.md
+│   ├── engineering/
+│   │   └── match-continuity.md
 │   ├── licensing-and-access.md
 │   └── faq.md
 └── .github/

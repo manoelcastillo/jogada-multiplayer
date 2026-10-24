@@ -1,0 +1,76 @@
+{
+  "evaluationDateLocal": "2026-10-25",
+  "timezone": "Europe/Lisbon",
+  "status": "passed",
+  "environment": "isolated local Docker/Flutter development environment",
+  "sourceCommits": {
+    "jogada_server": "0fc65815aac2f0c38f9349c3705b62fa1d49d360",
+    "jogada_client": "9647660a89b2d813981837460f3cee0607950eb2"
+  },
+  "configuration": {
+    "javaWorkers": 2,
+    "matchPlayers": 2,
+    "noPressure": true,
+    "ruleValidationEnabled": true,
+    "twoPlayerTablesEnabled": true,
+    "authentication": "Dev-only synthetic test sessions; normal authenticated gameplay path",
+    "workerStop": "One isolated Java container abruptly stopped; Redis and PostgreSQL stayed available",
+    "clientInterruption": "Existing client WebSocket closed with code 4000; automatic reconnection observed"
+  },
+  "checks": {
+    "sameMatchBeforeReplacement": true,
+    "legalDrawAcknowledged": true,
+    "onlyOneClientSocketReplaced": true,
+    "sameMatchAfterReplacement": true,
+    "playerStatePreserved": true,
+    "sameMatchAfterClientInterruption": true,
+    "playerStatePreservedAfterClientInterruption": true
+  },
+  "observedTimingsMs": {
+    "workerStopToRecoveredSnapshot": 1116,
+    "clientSocketCloseToRecoveredSnapshot": 2222
+  },
+  "snapshotComparisonFields": [
+    "id",
+    "publicMatchKey",
+    "players[].playerId",
+    "players[].hand",
+    "currentPlayerId",
+    "gameState",
+    "roundNumber",
+    "team0Score",
+    "team1Score",
+    "team0MatchPoints",
+    "team1MatchPoints",
+    "team0Melds",
+    "team1Melds",
+    "deckNumCards",
+    "discardPile",
+    "footANumCards",
+    "footBNumCards",
+    "noPressure"
+  ],
+  "snapshotHashesBeforeAfterWorkerStop": {
+    "A": {
+      "before": "e0c7004176fcd0768a2ade3055b57dc0768d72b40da0b7da70b632400350f800",
+      "after": "e0c7004176fcd0768a2ade3055b57dc0768d72b40da0b7da70b632400350f800"
+    },
+    "B": {
+      "before": "38c8da355002ab84d63c9e6526975dc12efe4d6fd1b426469ff1b9b90f4972ac",
+      "after": "38c8da355002ab84d63c9e6526975dc12efe4d6fd1b426469ff1b9b90f4972ac"
+    }
+  },
+  "limits": [
+    "One functional local run, not a capacity benchmark or SLA",
+    "No AWS ALB/Fargate rolling deployment executed in this evaluation",
+    "No OS-level offline or mobile network handoff simulated",
+    "No Redis or PostgreSQL failure injected",
+    "No native billing, offline mode, timer failover, or plugin integration acceptance test in this run",
+    "Fresh committed-source extraction; existing host SDKs and dependency caches available"
+  ],
+  "recording": {
+    "file": "recovery.mp4",
+    "seconds": 17.69,
+    "edit": "Startup/warmup trimmed; remaining interval continuous at normal speed; no audio"
+  }
+}
