@@ -1,6 +1,7 @@
 # Local recovery recording
 
-- [Recording](recovery.mp4): approximately 18 seconds, normal speed, no audio; startup and warmup trimmed.
+- [Watch in the browser](https://manoelcastillo.github.io/jogada-multiplayer/) or [download the recording](recovery.mp4): approximately 18 seconds, normal speed, no audio; startup and warmup trimmed.
+- [English captions](recovery.vtt).
 - [Poster](recovery-poster.png): actual Flutter web clients in the isolated local evaluation.
 - [Structured results](evaluation.json): versions, checks, selected state fields, and observations.
 - [Full report](../../docs/recovery-evaluation.md): method, interpretation, and exclusions.

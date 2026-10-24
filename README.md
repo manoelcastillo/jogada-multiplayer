@@ -18,9 +18,9 @@ Java validates online play. Redis holds live match state outside the application
 
 ## See recovery in a real client
 
-[![Two Flutter clients in a local recovery evaluation](assets/demo/recovery-poster.png)](assets/demo/recovery.mp4)
+[![Two Flutter clients in a local recovery evaluation](assets/demo/recovery-poster.png)](https://manoelcastillo.github.io/jogada-multiplayer/)
 
-**[Watch the 18-second recording](assets/demo/recovery.mp4)** · [Read the test report](docs/recovery-evaluation.md) · [Engineering explanation](docs/engineering/match-continuity.md)
+**[Watch the 18-second recording](https://manoelcastillo.github.io/jogada-multiplayer/)** · [Read the test report](docs/recovery-evaluation.md) · [Engineering explanation](docs/engineering/match-continuity.md)
 
 Two real Flutter web clients join one match through different Java workers. One worker is stopped; the affected client reconnects and recovers the same match and selected player-visible state. A second scenario closes a client's WebSocket and verifies automatic recovery again.
 
@@ -198,6 +198,8 @@ To request access, email **[contato@jogada.com.br](mailto:contato@jogada.com.br?
 ```text
 jogada-multiplayer/
 ├── README.md
+├── index.html
+├── .nojekyll
 ├── LICENSE.md
 ├── CONTRIBUTING.md
 ├── SECURITY.md
@@ -208,7 +210,10 @@ jogada-multiplayer/
 │   ├── social-preview.png
 │   └── demo/
 │       ├── README.md
+├── index.html
+├── .nojekyll
 │       ├── recovery.mp4
+│       ├── recovery.vtt
 │       ├── recovery-poster.png
 │       └── evaluation.json
 ├── docs/

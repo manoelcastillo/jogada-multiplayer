@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00.000 --> 00:03.000
+Two real Flutter clients in one local match, initially connected through different Java workers.
+
+00:03.000 --> 00:04.500
+One Java worker is abruptly stopped. Redis and the other worker remain available.
+
+00:04.500 --> 00:09.300
+Client B reconnects to the same match. Selected player-visible state is preserved; Client A's socket stayed open.
+
+00:09.300 --> 00:11.600
+Client B's WebSocket is explicitly closed to exercise automatic reconnection again.
+
+00:11.600 --> 00:17.720
+The client recovers the same match and selected state again. Both local recovery scenarios passed.

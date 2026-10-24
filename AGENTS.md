@@ -5,7 +5,7 @@ The production application and future licensed source distribution are separate.
 
 ## Scope
 
-- Keep this repository focused on public documentation, original diagrams, and GitHub community files.
+- Keep this repository focused on public documentation, original diagrams/media, the static demonstration page, and GitHub community files.
 - Do not copy application source, Terraform implementation, credentials, state files, customer data, or operational logs here.
 - Sanitized evaluation reports and original media may be published with their source versions, method, and limitations; never include authentication tokens or raw operational logs.
 - Do not modify sibling Jogada repositories as part of a showcase documentation task.

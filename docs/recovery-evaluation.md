@@ -6,9 +6,9 @@ On 25 October 2026, an isolated local run exercised two real Flutter web clients
 
 The same run then closed Client B's WebSocket and observed automatic reconnection and state recovery. Both scenarios passed the recorded assertions.
 
-[![Two real Flutter clients in the recovery evaluation](../assets/demo/recovery-poster.png)](../assets/demo/recovery.mp4)
+[![Two real Flutter clients in the recovery evaluation](../assets/demo/recovery-poster.png)](https://manoelcastillo.github.io/jogada-multiplayer/)
 
-[Watch the recording](../assets/demo/recovery.mp4) · [Machine-readable results](../assets/demo/evaluation.json) · [Why the match survives](engineering/match-continuity.md)
+[Watch the recording](https://manoelcastillo.github.io/jogada-multiplayer/) · [Machine-readable results](../assets/demo/evaluation.json) · [Why the match survives](engineering/match-continuity.md)
 
 ## Environment and source versions
 

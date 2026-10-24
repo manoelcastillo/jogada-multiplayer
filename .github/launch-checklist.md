@@ -20,6 +20,7 @@ delivery remains a separate release with its own acceptance gates.
 - [x] Publish the showcase with accurate early-access positioning; the owner made it public.
 - [x] Record two real Flutter clients, worker loss, and client WebSocket recovery in an isolated local environment.
 - [x] Publish the recording with source revisions, assertions, measured observations, and explicit limits.
+- [x] Add a static browser video player with captions for the published recording.
 - [x] Add an engineering article explaining match continuity and deployment compatibility.
 - [x] Set the GitHub About description, live-game website, and developer topics.
 - [x] Prepare the original 1280×640 social preview image and editable SVG.
