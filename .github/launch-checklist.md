@@ -20,9 +20,9 @@ delivery remains a separate release with its own acceptance gates.
 - [x] Publish the showcase with accurate early-access positioning; the owner made it public.
 - [x] Record two real Flutter clients, worker loss, and client WebSocket recovery in an isolated local environment.
 - [x] Publish the recording with source revisions, assertions, measured observations, and explicit limits.
-- [x] Add a static browser video player with captions for the published recording.
+- [x] Publish a static GitHub Pages video player with captions; verify native playback and mobile layout.
 - [x] Add an engineering article explaining match continuity and deployment compatibility.
-- [x] Set the GitHub About description, live-game website, and developer topics.
+- [x] Set the GitHub About description, hosted demonstration website, and developer topics.
 - [x] Prepare the original 1280×640 social preview image and editable SVG.
 - [ ] Upload `assets/social-preview.png` in GitHub Settings → Social preview; the available browser session was signed out.
 - [x] Prepare owner-only Product Hunt copy, announcements, qualification replies, a lead tracker, and a founding-offer proposal in the ignored local `.launch/` directory.
@@ -50,7 +50,7 @@ Description:
 
 > Production-proven multiplayer infrastructure for card and turn-based games: Flutter, authoritative Java servers, Redis, and AWS Fargate/Terraform. Architecture, demos, and commercial licensing.
 
-Website: `https://app.jogada.com.br/`
+Website: `https://manoelcastillo.github.io/jogada-multiplayer/`
 
 Topics: `flutter`, `dart`, `java`, `spring-boot`, `redis`, `websocket`, `stomp`,
 `multiplayer`, `card-game`, `aws-fargate`, `terraform`, `self-hosted`.
