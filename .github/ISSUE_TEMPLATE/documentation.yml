@@ -1,0 +1,32 @@
+name: Documentation feedback
+description: Report an unclear statement, inaccurate claim, or broken documentation link.
+title: "[Docs]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for showcase documentation only. Issues can be publicly visible.
+        Send licensing and early-access enquiries to contato@jogada.com.br.
+        Do not include credentials, customer data, private source, or confidential project plans.
+        Report security concerns privately using SECURITY.md.
+  - type: input
+    id: page
+    attributes:
+      label: Page or section
+      description: Give the documentation path, heading, or link.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is unclear or incorrect?
+      description: Quote the relevant statement and describe the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Suggested correction or supporting source
+      description: Include a correction or a public reference if you have one.
+    validations:
+      required: false

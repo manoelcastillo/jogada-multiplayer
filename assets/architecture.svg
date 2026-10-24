@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1220" viewBox="0 0 1200 1220" role="img" aria-labelledby="title desc">
+  <title id="title">Jogada Multiplayer architecture overview</title>
+  <desc id="desc">Views, Riverpod controllers, repositories, and network adapters sit inside the Flutter client. The client connects through an Application Load Balancer to Java workers A, B, and N inside an AWS Fargate worker pool. Every worker shares Redis live match state and a Redis Pub/Sub backplane. Terraform provisions the infrastructure. N represents further worker instances as capacity is adjusted to demand.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse">
+      <path d="M1 1 L7 4 L1 7" fill="none" stroke="#42617b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; fill: #14283d; }
+      .heading { font-size: 26px; font-weight: 700; }
+      .section { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; fill: #557087; }
+      .label { font-size: 20px; font-weight: 650; }
+      .body { font-size: 15px; fill: #425e75; }
+      .small { font-size: 13px; fill: #425e75; }
+      .card { fill: #ffffff; stroke: #cad7e4; stroke-width: 1.5; }
+      .line { fill: none; stroke: #42617b; stroke-width: 2; }
+      .flow { fill: none; stroke: #42617b; stroke-width: 2; marker-end: url(#arrow); }
+      .two-way { fill: none; stroke: #42617b; stroke-width: 2; marker-start: url(#arrow); marker-end: url(#arrow); }
+      .provisions { fill: none; stroke: #7863ab; stroke-width: 1.8; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1200" height="1220" rx="18" fill="#f5f8fc"/>
+  <text x="52" y="55" class="heading">Jogada Multiplayer</text>
+  <text x="1148" y="53" text-anchor="end" class="section">ARCHITECTURE OVERVIEW</text>
+
+  <rect x="330" y="96" width="540" height="420" rx="16" fill="#edf6fb" stroke="#b8d8e8" stroke-width="1.5"/>
+  <text x="600" y="136" text-anchor="middle" class="label">Flutter · Android / iOS / Web/PWA</text>
+
+  <rect x="390" y="165" width="420" height="48" rx="10" class="card"/>
+  <text x="600" y="195" text-anchor="middle" class="label">Views</text>
+  <path d="M600 213 V245" class="two-way"/>
+
+  <rect x="390" y="245" width="420" height="64" rx="10" class="card"/>
+  <text x="600" y="271" text-anchor="middle" class="label">Riverpod controllers</text>
+  <text x="600" y="294" text-anchor="middle" class="body">Notifier + NotifierProvider</text>
+  <path d="M600 309 V341" class="two-way"/>
+
+  <rect x="390" y="341" width="420" height="48" rx="10" class="card"/>
+  <text x="600" y="371" text-anchor="middle" class="label">Repositories</text>
+  <path d="M600 389 V421" class="two-way"/>
+
+  <rect x="390" y="421" width="420" height="48" rx="10" class="card"/>
+  <text x="600" y="451" text-anchor="middle" class="label">Network adapters</text>
+  <path d="M600 469 V574" class="two-way"/>
+  <text x="628" y="548" class="small">HTTPS / WSS + STOMP</text>
+
+  <rect x="54" y="574" width="240" height="74" rx="12" fill="#f0ecfc" stroke="#cec3e8" stroke-width="1.5"/>
+  <text x="78" y="605" class="label">Terraform</text>
+  <text x="78" y="630" class="small">Infrastructure provisioning</text>
+
+  <rect x="430" y="574" width="340" height="74" rx="12" class="card"/>
+  <text x="600" y="605" text-anchor="middle" class="label">Application Load Balancer</text>
+  <text x="600" y="630" text-anchor="middle" class="small">Routes to healthy workers</text>
+  <path d="M294 610 H430" class="provisions"/>
+  <text x="362" y="595" text-anchor="middle" class="small">provisions</text>
+
+  <rect x="100" y="730" width="1000" height="174" rx="16" fill="#eaf2fa" stroke="#c6d8e9" stroke-width="1.5"/>
+  <text x="124" y="758" class="section">AWS FARGATE</text>
+  <path d="M54 610 H30 V822 H100" class="provisions"/>
+
+  <path d="M600 648 V694 M270 694 H930 M270 694 V788 M600 694 V788 M930 694 V788" class="line"/>
+  <rect x="150" y="788" width="240" height="80" rx="11" class="card"/>
+  <text x="270" y="820" text-anchor="middle" class="label">Java worker A</text>
+  <text x="270" y="845" text-anchor="middle" class="body">Rules · API · STOMP</text>
+  <rect x="480" y="788" width="240" height="80" rx="11" class="card"/>
+  <text x="600" y="820" text-anchor="middle" class="label">Java worker B</text>
+  <text x="600" y="845" text-anchor="middle" class="body">Rules · API · STOMP</text>
+  <rect x="810" y="788" width="240" height="80" rx="11" class="card"/>
+  <text x="930" y="820" text-anchor="middle" class="label">Java worker N</text>
+  <text x="930" y="845" text-anchor="middle" class="body">Rules · API · STOMP</text>
+
+  <path d="M270 868 V952 M600 868 V952 M930 868 V952 M270 952 H930" class="line"/>
+  <text x="600" y="982" text-anchor="middle" class="small">Shared live state and internal event fan-out</text>
+  <path d="M375 952 V1030" class="two-way"/>
+  <path d="M825 952 V1030" class="two-way"/>
+
+  <rect x="180" y="1030" width="390" height="110" rx="14" class="card"/>
+  <rect x="180" y="1030" width="7" height="110" rx="3" fill="#bd3d36"/>
+  <text x="210" y="1067" class="label">Redis · live match state</text>
+  <text x="210" y="1095" class="body">Versioned writes and coordination</text>
+  <text x="210" y="1120" class="small">Resync from authoritative state</text>
+
+  <rect x="630" y="1030" width="390" height="110" rx="14" class="card"/>
+  <rect x="630" y="1030" width="7" height="110" rx="3" fill="#bd3d36"/>
+  <text x="660" y="1067" class="label">Redis Pub/Sub · backplane</text>
+  <text x="660" y="1095" class="body">Cross-worker realtime notifications</text>
+  <text x="660" y="1120" class="small">Live fan-out; no durable event replay</text>
+
+  <text x="600" y="1188" text-anchor="middle" class="body">Worker N represents additional capacity as the pool is scaled to demand.</text>
+</svg>
