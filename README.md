@@ -68,13 +68,17 @@ flowchart TB
     b <--> pubsub
     n <--> pubsub
 
+    a <--> postgres["PostgreSQL · persistent application records"]
+    b <--> postgres
+    n <--> postgres
+
     terraform["Terraform"] -. provisions .-> alb
     terraform -. provisions .-> workers
 ```
 
 Workers A, B, and N represent a pool whose count can be adjusted to demand. Deployment capacity and scaling policies are configured for the operator's workload; the diagram does not prescribe a fixed number of workers.
 
-[Download the SVG overview](assets/architecture.svg). This overview focuses on the live multiplayer path; persistent application data is covered in the [full architecture](docs/architecture.md).
+[Download the SVG overview](assets/architecture.svg). Redis holds live match state; PostgreSQL stores persistent application records. The [full architecture](docs/architecture.md) explains their distinct roles and recovery boundaries.
 
 | Layer | Responsibility |
 | --- | --- |

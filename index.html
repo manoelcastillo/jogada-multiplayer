@@ -61,7 +61,7 @@
         </section>
         <section class="panel" aria-labelledby="architecture-title">
           <h2 id="architecture-title">A foundation for your game</h2>
-          <p>Flutter and Riverpod handle presentation and recovery. Java validates online play. Redis holds live match state, with Pub/Sub for cross-worker fan-out. The reference AWS deployment uses Fargate, ALB, and Terraform.</p>
+          <p>Flutter and Riverpod handle presentation and recovery. Java validates online play. Redis holds live match state, with Pub/Sub for cross-worker fan-out. PostgreSQL stores persistent application records. The reference AWS deployment uses Fargate, ALB, and Terraform.</p>
           <p>Game rules and engines follow a plugin architecture. Each game implements its own rules and client experience against the shared runtime.</p>
           <p><strong>Commercial source distribution is being prepared.</strong> The public repository contains documentation and evidence. Implementation access is provided separately under an agreed commercial license.</p>
           <p><a href="https://github.com/manoelcastillo/jogada-multiplayer/blob/main/docs/licensing-and-access.md">Licensing and source access →</a></p>

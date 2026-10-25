@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1220" viewBox="0 0 1200 1220" role="img" aria-labelledby="title desc">
   <title id="title">Jogada Multiplayer architecture overview</title>
-  <desc id="desc">Views, Riverpod controllers, repositories, and network adapters sit inside the Flutter client. The client connects through an Application Load Balancer to Java workers A, B, and N inside an AWS Fargate worker pool. Every worker shares Redis live match state and a Redis Pub/Sub backplane. Terraform provisions the infrastructure. N represents further worker instances as capacity is adjusted to demand.</desc>
+  <desc id="desc">Views, Riverpod controllers, repositories, and network adapters sit inside the Flutter client. The client connects through an Application Load Balancer to Java workers A, B, and N inside an AWS Fargate worker pool. Every worker accesses Redis live match state, the Redis Pub/Sub backplane, and PostgreSQL persistent application records. Terraform provisions the infrastructure. N represents further worker instances as capacity is adjusted to demand.</desc>
   <defs>
     <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse">
       <path d="M1 1 L7 4 L1 7" fill="none" stroke="#42617b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -69,22 +69,29 @@
   <text x="930" y="820" text-anchor="middle" class="label">Java worker N</text>
   <text x="930" y="845" text-anchor="middle" class="body">Rules · API · STOMP</text>
 
-  <path d="M270 868 V952 M600 868 V952 M930 868 V952 M270 952 H930" class="line"/>
-  <text x="600" y="982" text-anchor="middle" class="small">Shared live state and internal event fan-out</text>
-  <path d="M375 952 V1030" class="two-way"/>
-  <path d="M825 952 V1030" class="two-way"/>
+  <path d="M270 868 V952 M600 868 V952 M930 868 V952 M230 952 H970" class="line"/>
+  <text x="600" y="982" text-anchor="middle" class="small">Shared match state, internal event fan-out, and persistent application records</text>
+  <path d="M230 952 V1030" class="two-way"/>
+  <path d="M600 952 V1030" class="two-way"/>
+  <path d="M970 952 V1030" class="two-way"/>
 
-  <rect x="180" y="1030" width="390" height="110" rx="14" class="card"/>
-  <rect x="180" y="1030" width="7" height="110" rx="3" fill="#bd3d36"/>
-  <text x="210" y="1067" class="label">Redis · live match state</text>
-  <text x="210" y="1095" class="body">Versioned writes and coordination</text>
-  <text x="210" y="1120" class="small">Resync from authoritative state</text>
+  <rect x="60" y="1030" width="340" height="110" rx="14" class="card"/>
+  <rect x="60" y="1030" width="7" height="110" rx="3" fill="#bd3d36"/>
+  <text x="88" y="1067" class="label">Redis · live match state</text>
+  <text x="88" y="1095" class="body">Versioned writes and coordination</text>
+  <text x="88" y="1120" class="small">Resync from authoritative state</text>
 
-  <rect x="630" y="1030" width="390" height="110" rx="14" class="card"/>
-  <rect x="630" y="1030" width="7" height="110" rx="3" fill="#bd3d36"/>
-  <text x="660" y="1067" class="label">Redis Pub/Sub · backplane</text>
-  <text x="660" y="1095" class="body">Cross-worker realtime notifications</text>
-  <text x="660" y="1120" class="small">Live fan-out; no durable event replay</text>
+  <rect x="430" y="1030" width="340" height="110" rx="14" class="card"/>
+  <rect x="430" y="1030" width="7" height="110" rx="3" fill="#bd3d36"/>
+  <text x="458" y="1067" class="label">Redis Pub/Sub</text>
+  <text x="458" y="1095" class="body">Cross-worker realtime backplane</text>
+  <text x="458" y="1120" class="small">Live fan-out; no durable event replay</text>
+
+  <rect x="800" y="1030" width="340" height="110" rx="14" class="card"/>
+  <rect x="800" y="1030" width="7" height="110" rx="3" fill="#336791"/>
+  <text x="828" y="1067" class="label">PostgreSQL</text>
+  <text x="828" y="1095" class="body">Persistent application records</text>
+  <text x="828" y="1120" class="small">Separate from live match state</text>
 
   <text x="600" y="1188" text-anchor="middle" class="body">Worker N represents additional capacity as the pool is scaled to demand.</text>
 </svg>
