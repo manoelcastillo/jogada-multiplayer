@@ -1,20 +1,65 @@
 # Jogada Multiplayer
 
-**Flutter clients. Authoritative Java rules. Match state that outlives the worker.**
+**Build your card game on a reusable Flutter + Java multiplayer foundation.**
 
 ![Client: Flutter](https://img.shields.io/badge/client-Flutter-02569B)
 ![Backend: Java](https://img.shields.io/badge/backend-Java-37556E)
 ![State: Redis](https://img.shields.io/badge/state-Redis-B42318)
 ![Infrastructure: Terraform](https://img.shields.io/badge/infrastructure-Terraform-6246B5)
-![License: Proprietary](https://img.shields.io/badge/license-Proprietary-475569)
+![License: Commercial](https://img.shields.io/badge/source-Commercial-475569)
 
-A self-hosted foundation for card and turn-based multiplayer games, derived from the infrastructure behind [Jogada](https://jogada.com.br/), a live Buraco card game on Android, iOS, and the web.
+For independent developers and small startup/studio teams starting a card or turn-based multiplayer game. Implement your rules and game screens on a foundation that supplies the multiplayer runtime, client structure, account workflows, operator tools, and deployment infrastructure.
 
-Java validates online play. Redis holds live match state outside the application workers. Flutter handles presentation and connection recovery. Terraform defines the AWS deployment.
+The reference infrastructure powers [Jogada](https://jogada.com.br/), a live Buraco game on Android, iOS, and Web/PWA. Online authority lives in Java, live match state in Redis, and persistent application records in PostgreSQL. Flutter renders player-visible state and handles connection recovery.
 
-**Commercial source distribution is being prepared.** This repository contains architecture documentation, evaluation guidance, and licensing information. The application source and Terraform implementation are distributed separately under a commercial license.
+**The commercial developer distribution is being prepared.** The package scopes and initial prices below describe the intended first licensed release. This public repository contains documentation and evaluation media; it does not contain the application implementation. Release contents and availability will be confirmed before purchase.
 
-[Request early access](mailto:contato@jogada.com.br?subject=Jogada%20Multiplayer%20-%20Early%20access) · [Try the live game](https://app.jogada.com.br/) · [Read the architecture](docs/architecture.md) · [Licensing and access](docs/licensing-and-access.md)
+[Watch the recovery demo](https://manoelcastillo.github.io/jogada-multiplayer/) · [Compare features](docs/features.md) · [Licensing and access](docs/licensing-and-access.md) · [Enquire by email](mailto:contato@jogada.com.br?subject=Jogada%20Multiplayer%20-%20Developer%20licensing)
+
+## What you build
+
+Your Java game engine encapsulates rules, validation, scoring, and match transitions through the plugin architecture. Your Flutter screens define the game experience. If your game supports standalone offline play, you also implement its Dart rules and bots.
+
+| Your implementation | Framework and package boundary |
+| --- | --- |
+| Game rules and state transitions | Java rules-plugin architecture and shared multiplayer runtime |
+| Game screens and interactions | Flutter/Riverpod foundation, reusable components, themes, animations, and customization guidance |
+| Offline rules and bot decisions | Separate Dart integration, demonstrated by the tutorial |
+| Brand and visual assets | Replaceable themes/assets, approved starter artwork/editable files, and asset workflow guidance |
+| Provider and deployment configuration | Integration points, local tooling, Terraform, and release-specific setup documentation |
+
+Poker and blackjack are examples of games buyers may implement. Their engines are not bundled. Jogada's Buraco rules, game screens, offline engine/bots, and branding are excluded from delivery. Buyers may implement their own Buraco game within their licensed project scope.
+
+Studio/Agency licensing is also available for agreed multi-game, multi-brand, or client deliveries. Existing-game migrations and hands-on implementation are assessed and scoped separately.
+
+## Choose the foundation or the broader platform
+
+Full Platform includes Core. Terraform, local development tooling, the tutorial, and a usable admin panel belong in both packages.
+
+| Capability | Core | Full Platform |
+| --- | :---: | :---: |
+| Java multiplayer runtime and game-plugin architecture | Yes | Yes |
+| Flutter foundation, reusable UI/themes, and approved starter assets | Yes | Yes |
+| Accounts, basic profiles/avatars, guest conversion, deletion/export | Yes | Yes |
+| Lobbies, matchmaking, private matches, and reconnection | Yes | Yes |
+| Push notifications and in-app announcements | Yes | Yes |
+| In-app player-support requests and operator replies | Yes | Yes |
+| Core admin panel | Yes | Yes |
+| Docker tooling, Terraform, and technical documentation | Yes | Yes |
+| Original card-game tutorial: online and offline with a simple bot | Yes | Yes |
+| Social/chat and persistent private rooms | — | Yes |
+| Achievements, rankings, ranking events, and daily-challenge support | — | Yes |
+| Player-facing match history and replay support | — | Yes |
+| Stripe and native IAP billing workflows | — | Yes |
+| Product analytics and complete module-specific admin console | — | Yes |
+| Initial license, USD | **$499** | **$999** |
+| Optional additional 12 months of updates/access, USD | **$149** | **$299** |
+
+**Core → Full Platform upgrade: US$499** for the same licensed game/project, including a fresh 12 months of Full Platform updates/repository access and 30 days of email installation help for the added modules. See [upgrade details](docs/licensing-and-access.md#core-to-full-platform-upgrade).
+
+The matrix describes the intended developer-release scope. Reusable module extraction and release acceptance remain in progress. Game-specific scoring, objectives, replay rendering, and provider configuration require adaptation. See the [feature catalog](docs/features.md) for boundaries and items still under scope review.
+
+Core's admin panel covers player lookup and account blocking/unblocking, active match/lobby visibility, supported runtime settings, push/announcement management, and player-support handling. Full Platform adds administration for its additional modules and product reporting.
 
 ## See recovery in a real client
 
@@ -24,15 +69,7 @@ Java validates online play. Redis holds live match state outside the application
 
 Two real Flutter web clients join one match through different Java workers. One worker is stopped; the affected client reconnects and recovers the same match and selected player-visible state. A second scenario closes a client's WebSocket and verifies automatic recovery again.
 
-Both scenarios passed in an isolated local run on 25 October 2026. The report identifies source versions, configuration, checks, and limits. This is functional evidence; AWS rollout, workload capacity, native platforms, billing, and plugin integration need their own release acceptance checks.
-
-## Built for
-
-- Developers building an authoritative card or turn-based game with a Flutter client.
-- Startups that want control of the application source and their own AWS account.
-- Studios that need to evaluate deployment, reconnection, and state consistency before choosing a foundation.
-
-Game engines and rules follow a plugin architecture, making games easy to implement, add, remove, and manage while reusing the multiplayer infrastructure. The live reference game implements Buraco. See [game engine plugin architecture](#game-engine-plugin-architecture).
+Both scenarios passed in an isolated local run on 25 October 2026. The report identifies source versions, configuration, checks, and limits. This proves the recorded reference-product paths. AWS rolling deployment, workload capacity, native platforms, billing, the extracted plugin contract, and the new tutorial require their own release acceptance checks.
 
 ## Architecture at a glance
 
@@ -95,151 +132,99 @@ Clients subscribe to STOMP destinations exposed by the Java service. Redis is an
 
 Read the [architecture and failure model](docs/architecture.md) for the distinction between authoritative state, live event delivery, and connection lifetime.
 
+
 ## Technical highlights
 
-### Server-side authority
+- **Server-side authority.** Online clients submit intent. Java validates actions, applies rules, and produces player-visible state. Client memory changes do not make a forged score or move authoritative. Offline play has a separate Dart engine and bot logic.
+- **Game rules as plugins.** Each game's engine integrates through the shared architecture, making implementations easier to add, remove, and manage. The framework supplies networking, shared state, recovery, and deployment; the buyer implements the game's rules and experience.
+- **Zero-downtime deployment design.** Compatible rolling deployments preserve service availability and active match state while workers are replaced. Affected WebSockets reconnect. State, rules, and protocol compatibility remain deployment requirements.
+- **Seamless reconnection.** Clients reconnect, restore subscriptions, and reconcile with current authoritative state while their match, seat, and session remain valid. Redis Pub/Sub provides live fan-out; recovery uses state reconciliation rather than durable Pub/Sub replay.
+- **Infrastructure as code.** Both packages include Terraform for the AWS deployment and Docker development tooling. Operators configure and pay for their own infrastructure and external services.
+- **A structured Flutter client.** Views, Riverpod `Notifier`/`NotifierProvider` controllers, repositories, and network adapters keep presentation and transport responsibilities explicit across Android, iOS, and Web/PWA.
 
-Online clients submit intent. Java validates the action, applies the rules, and produces the resulting state. Changing client memory does not make a forged move or score authoritative.
+Read the [architecture and failure model](docs/architecture.md) for the details behind these boundaries.
 
-The online client still contains presentation logic, transport handling, and user interaction state. The separate offline mode contains a local game engine and bots.
+## First onboarding milestone
 
-### Game engine plugin architecture
+The intended developer release includes a small original card-game tutorial showing private hands, deck state, turn validation, the Java plugin, and Flutter integration. It also includes a separate Dart offline implementation with a simple bot. The tutorial is a developer-release requirement; its implementation and acceptance checks are pending.
 
-**Game engines are plugins.** Each game encapsulates its rules, move validation, scoring, and match transitions in a modular engine. This plugin architecture makes game implementations easy to add, remove, and manage while the shared runtime handles networking, shared state, reconnection, and deployment.
+The first guide will walk through:
 
-Plugin contracts define how each game engine integrates with the runtime. Each game also has its own client experience and, where applicable, offline engine adaptation.
+1. Starting the local Docker backend and Flutter example.
+2. Playing an online match between two clients.
+3. Trying standalone offline play against the bot.
+4. Modifying one example rule.
 
-### Zero-downtime deployment design
+AWS deployment through Terraform follows in a separate guide. Exact tutorial rules, release paths, and runnable commands will accompany the developer release. No setup-time guarantee is attached to this sequence.
 
-Compatible rolling deployments preserve active match state while Java workers are replaced. A client whose worker retires reconnects through the load balancer and resumes from shared state.
+The [local development page](docs/local-development.md) also documents the existing reference workspace's commands and configuration. Those commands are an engineering preview, not instructions for installing the excluded Buraco game or a finished tutorial from this public repository.
 
-Here, zero downtime describes service availability and match continuity. An established WebSocket belongs to one process and may need to reconnect during replacement. State schemas, rules, and client protocols must remain compatible across the rollout.
+## Developer package layout blueprint
 
-### Seamless reconnection
+The following shows the intended logical boundaries. Final filesystem paths will be documented with the licensed release.
 
-After a temporary connection loss, the client re-establishes its connection, restores subscriptions, and reconciles with the current authoritative match state. Recovery depends on the match, seat, and session remaining valid.
-
-### Infrastructure as code
-
-Terraform defines the AWS infrastructure, including Fargate services, load balancing, networking, and data services. Buyers operate the licensed implementation in their own infrastructure.
-
-### Cross-platform client and offline play
-
-The Flutter client targets Android, iOS, and Web/PWA. Standalone single-player mode runs a local Dart rules engine and bots without requiring a multiplayer server. Offline results do not become authoritative online match state.
-
-### Monetization integrations
-
-The reference product includes subscription and checkout workflows using Stripe for the web/PWA and native in-app purchases through Google Play Billing and Apple StoreKit. Provider accounts, product configuration, and platform setup belong to the operator.
-
-## Run locally: source workspace preview
-
-The source implementation has a Docker development harness. These commands describe that source workspace; cloning this showcase does not install the application.
-
-From the server source directory:
-
-```bash
-cd jogada_server
-./run-local.sh 3
+```text
+jogada-multiplayer-source/
+├── core/                      # Java runtime, networking, state, shared platform
+├── plugins/
+│   └── tutorial-card-game/    # Original tutorial rules plugin
+├── client/                    # Flutter foundation, modules, tutorial, offline Dart
+├── dev-env/                   # Docker orchestration and neutral configuration
+├── infrastructure/            # Terraform and operator setup
+├── assets/                    # Approved reusable artwork and editable files
+└── docs/                      # First run, plugin integration, deployment, operations
 ```
 
-In another terminal, from the client source directory:
+The plugin architecture is an integration boundary, not a catalog of bundled game engines. A visual client-wide design-system configurator is a later-release direction; the first release uses direct customization through components, themes, assets, and documentation. Custom graphic-design services are not offered.
 
-```bash
-cd jogada_client
-flutter pub get
-flutter run -d chrome \
-  --dart-define=JOGADA_HTTP=http://localhost:8080 \
-  --dart-define=JOGADA_STOMP=ws://localhost:8080/ws
-```
+## Licensing and private source access
 
-The backend harness starts multiple workers behind a local reverse proxy, with Redis and PostgreSQL. Initial setup requires dependency and image downloads. Live billing and other external integrations require their own development configuration.
+A standard license covers **one game and its variations for one branded product/customer project**, including its supported Android, iOS, and Web builds and development/staging/production deployments. The entire project team, including employees and contractors working on that project, may use and modify the delivered source.
 
-See [local development](docs/local-development.md) for prerequisites, PowerShell/Compose commands, shutdown behavior, and the limits of this preview. The commercial release's final directory layout and installation instructions will accompany that release.
+Both packages are **royalty-free**, with no software fees per instance, player, match, or developer. A combined poker-and-blackjack app needs rights for both distinct games. Additional brands or customer deliveries need separate standard licenses or an agreed Studio/Agency scope.
 
-## Evaluate the behavior
+The purchase includes **12 months of private repository access and updates** and **30 days of written installation help by email** at [contato@jogada.com.br](mailto:contato@jogada.com.br), with a first-reply target of **two business days**. Renewal is optional: delivered versions may continue to run and be modified within the licensed scope without renewal. Calls, guided deployment, custom plugins/screens/integrations, and migrations are separately scoped services.
 
-The [live game](https://app.jogada.com.br/) demonstrates the player experience. It is a production service, not a public load-testing or fault-injection environment.
+To enquire, email **[contato@jogada.com.br](mailto:contato@jogada.com.br?subject=Jogada%20Multiplayer%20-%20Developer%20licensing)** with your game, platforms, team, and timeline. The release, rights, and services are agreed before payment; authorized GitHub accounts then receive access to the private distribution repository through the release's onboarding process. No private repository URL or immediate-access checkout is advertised here.
 
-For technical evaluation in a local or dedicated staging environment:
+Buyers operate production by default. An ongoing operations arrangement may be considered individually according to scope and availability; there is no standard managed-hosting plan or SLA. Provider accounts, infrastructure charges, and other configured external services are separate.
 
-1. Join the same match from two clients connected to different workers.
-2. Submit moves and confirm both clients receive the updates.
-3. Stop the worker serving one client.
-4. Confirm that client reconnects and resumes the same match.
-5. Disconnect and reconnect a client, then inspect the recovered server state.
-
-The [evaluation guide](docs/evaluation.md) defines what to record, how to distinguish a committed move from an unacknowledged attempt, and what deployment evidence to request. The [published local evaluation](docs/recovery-evaluation.md) records one observed recovery run. No capacity, recovery-time, uptime, or support SLA is claimed by this showcase.
-
-## Commercial licensing and access
-
-The intended commercial package covers the Java server, Flutter client, local development tooling, infrastructure definitions, and associated documentation. The exact release contents and usage rights will be stated in the offer before purchase.
-
-| Enquiry | Scope to discuss |
-| --- | --- |
-| Regular license | A defined commercial game, named developers, source access, update period, and support scope |
-| Studio / enterprise license | Multiple titles or teams, agency/client delivery rights, onboarding, maintenance, and negotiated support |
-
-Pricing, release availability, and final license terms are provided directly. There is no automated checkout or immediate-access promise in this repository.
-
-To request access, email **[contato@jogada.com.br](mailto:contato@jogada.com.br?subject=Jogada%20Multiplayer%20-%20Commercial%20licensing)** with your game type, target platforms, team size, and intended timeline. After the release scope and terms are agreed and payment is confirmed, authorized developers receive an invitation to the private source repository.
-
-[Read licensing and access details](docs/licensing-and-access.md).
+[Read the licensing summary](docs/licensing-and-access.md).
 
 ## Documentation
 
-| Document | What it explains |
+| Document | Purpose |
 | --- | --- |
-| [Architecture](docs/architecture.md) | Authority, state flow, shared state, fan-out, and failure boundaries |
-| [Local development](docs/local-development.md) | Source workspace commands and local environment behavior |
-| [Technical evaluation](docs/evaluation.md) | Reconnection, worker replacement, deployment, and evidence |
-| [Recorded recovery evaluation](docs/recovery-evaluation.md) | A real local run, source versions, assertions, and limitations |
-| [Match continuity explained](docs/engineering/match-continuity.md) | How shared state and snapshot recovery separate match lifetime from connection lifetime |
-| [Licensing and access](docs/licensing-and-access.md) | Commercial enquiries, delivery, rights, and support boundaries |
-| [FAQ](docs/faq.md) | Source availability, offline play, customization, hosting, and security claims |
+| [Feature catalog](docs/features.md) | Core/Full scope, customization, exclusions, and items under review |
+| [Architecture](docs/architecture.md) | Authority, shared state, fan-out, persistence, and failure boundaries |
+| [Local development](docs/local-development.md) | Onboarding sequence and reference workspace preview |
+| [Technical evaluation](docs/evaluation.md) | What to verify in a local or staging evaluation |
+| [Recorded recovery evaluation](docs/recovery-evaluation.md) | Source versions, observations, and limits of the local recording |
+| [Match continuity](docs/engineering/match-continuity.md) | Match lifetime, WebSocket lifetime, and snapshot recovery |
+| [Licensing and access](docs/licensing-and-access.md) | Prices, project rights, updates, support, and fulfillment |
+| [FAQ](docs/faq.md) | Practical questions for buyers and operators |
 
 ## About this repository
+
+This is a public documentation and evaluation showcase. Application source and Terraform implementation belong in the separate commercial distribution. The model is a premium source license with a public showcase; an open-source core is not offered here.
 
 ```text
 jogada-multiplayer/
 ├── README.md
 ├── index.html
-├── .nojekyll
 ├── LICENSE.md
 ├── CONTRIBUTING.md
 ├── SECURITY.md
 ├── AGENTS.md
-├── assets/
-│   ├── architecture.svg
-│   ├── social-preview.svg
-│   ├── social-preview.png
-│   └── demo/
-│       ├── README.md
-├── index.html
-├── .nojekyll
-│       ├── recovery.mp4
-│       ├── recovery.vtt
-│       ├── recovery-poster.png
-│       └── evaluation.json
-├── docs/
-│   ├── architecture.md
-│   ├── local-development.md
-│   ├── evaluation.md
-│   ├── recovery-evaluation.md
-│   ├── engineering/
-│   │   └── match-continuity.md
-│   ├── licensing-and-access.md
-│   └── faq.md
-└── .github/
-    ├── ISSUE_TEMPLATE/
-    │   ├── config.yml
-    │   └── documentation.yml
-    └── launch-checklist.md
+├── assets/                    # Architecture, preview, and recovery media
+├── docs/                      # Product, architecture, evaluation, and licensing
+└── .github/                   # Documentation issue templates and launch checklist
 ```
 
-Documentation corrections are welcome through [issues](https://github.com/manoelcastillo/jogada-multiplayer/issues) or the process in [CONTRIBUTING.md](CONTRIBUTING.md). Send commercial enquiries and sensitive reports by email.
+Documentation corrections are welcome through [issues](https://github.com/manoelcastillo/jogada-multiplayer/issues) or [CONTRIBUTING.md](CONTRIBUTING.md). Commercial enquiries and sensitive reports belong in direct correspondence.
 
 ## Copyright and licensing
 
-Copyright © 2026 Manoel Castillo. All rights reserved. The original showcase materials are proprietary, subject to the exceptions in [LICENSE.md](LICENSE.md). Commercial implementation rights are granted only by a separate agreement. Third-party names and trademarks belong to their respective owners.
+Copyright © 2026 Manoel Castillo. All rights reserved. Original showcase materials are proprietary, subject to the exceptions in [LICENSE.md](LICENSE.md). Commercial implementation rights are granted by a separate agreement. Third-party names and trademarks belong to their respective owners.
 
 Maintainer: [Manoel Castillo](https://github.com/manoelcastillo) · [contato@jogada.com.br](mailto:contato@jogada.com.br)

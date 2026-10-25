@@ -1,4 +1,4 @@
-# Local development: source workspace preview
+# Local onboarding and reference workspace preview
 
 [Back to the overview](../README.md)
 
@@ -10,7 +10,20 @@ The commercial release's final packaging and release-specific setup guide will
 be provided with that release. No private clone URL or unimplemented wrapper is
 presented here as an available product.
 
-## Prerequisites
+## Intended first onboarding milestone
+
+The developer-release walkthrough will use a small original card game and proceeds in this order:
+
+1. Start the local Docker backend and Flutter example.
+2. Play an online match between two clients.
+3. Try standalone offline play against the simple bot.
+4. Modify one example rule, with the walkthrough explaining the separate Java online and Dart offline implementations.
+
+AWS deployment through Terraform follows in a separate guide. This onboarding sequence is a release requirement, not an available tutorial, a measured setup duration, or an included hands-on deployment service. The developer release will supply its exact paths, commands, supported versions, and configuration.
+
+The commands below describe the internal reference workspace used for engineering evaluation. Jogada's Buraco implementation is excluded from commercial delivery. They are not a promise that cloning this public showcase installs the application or the new tutorial.
+
+## Reference-workspace prerequisites
 
 - Access to the matching server and client source versions.
 - Docker Engine or Docker Desktop, with a recent Docker Compose v2 supporting the `!override` merge tag.

@@ -6,6 +6,7 @@ delivery remains a separate release with its own acceptance gates.
 ## Showcase foundation
 
 - [x] Write the English README, architecture, local-development preview, evaluation guide, licensing page, and FAQ.
+- [x] Define the Core/Full Platform feature comparison, initial prices, optional renewals, same-project upgrade, team rights, and installation-support scope through owner discovery.
 - [x] Add an original architecture diagram and a proprietary rights notice.
 - [x] Use contato@jogada.com.br, already listed on the public Jogada website, for commercial enquiries.
 - [x] Separate showcase contents from application source and infrastructure implementation.
@@ -34,11 +35,14 @@ delivery remains a separate release with its own acceptance gates.
 - [x] Prepare private committed-source archives outside this public repository, without Git history or ignored files, and record checksums. These are internal candidates, not delivery-approved releases.
 - [x] Build and run matching server/client source from fresh extractions with isolated local data services.
 - [ ] Sanitize and approve the final private distribution: production-specific configuration, integrations, assets, dependencies, and documentation.
+- [ ] Extract the reusable framework/modules and exclude Jogada's Buraco rules, gameplay screens, offline engine/bots, and branding. The full reference-source archives are not a buyer release.
 - [ ] Verify installation on an independent clean machine using only the release's documented prerequisites.
 - [ ] Exercise cross-worker play, reconnection, worker replacement, and a compatible rollout for the offered versions.
 - [ ] Confirm native platform, offline, and billing claims against the release being sold.
 - [ ] Verify the game engine plugin architecture, add/remove/manage behavior, and integration documentation before delivering any licensed server.
-- [ ] Finalize license scope, pricing, update/access duration, renewal conditions, and support boundaries.
+- [ ] Implement and validate the original card-game tutorial: private hands, deck state, turn validation, online Java plugin/Flutter screens, and separate Dart offline rules/simple bot.
+- [ ] Verify the first onboarding sequence: local Docker/Flutter start, two-client online play, offline bot play, and one example rule change; provide a separate AWS/Terraform guide.
+- [ ] Finalize the commercial agreement, order details, broader Studio/Agency rights, and any release-specific support/service terms.
 - [ ] Confirm rights to distribute all included source, assets, dependencies, and infrastructure tooling.
 - [ ] Prepare payment and source-access fulfillment; test an invitation with the intended buyer permissions.
 - [ ] Prefer an organization-owned private source repository when buyers should receive read-only access.
@@ -55,8 +59,14 @@ Website: `https://manoelcastillo.github.io/jogada-multiplayer/`
 Topics: `flutter`, `dart`, `java`, `spring-boot`, `redis`, `websocket`, `stomp`,
 `multiplayer`, `card-game`, `aws-fargate`, `terraform`, `self-hosted`.
 
-Future distribution shape is a packaging decision. Do not publish fictional
-Core/Plugins directories or a private repository URL before they exist.
+Label layout blueprints as conceptual module boundaries. Document the final
+release's verified paths and commands before delivery, and use its actual private
+repository URL only through the authorized onboarding process.
 
-The owner-only draft offer is not a public price or binding license. Keep the
-public enquiry path quote-based until the owner adopts final scope and terms.
+The owner approved public initial pricing while the developer distribution is
+being prepared: Core US$499, Full Platform US$999, optional 12-month renewals at
+US$149/US$299, and a same-project Core-to-Full upgrade at US$499. The upgrade
+includes fresh 12-month updates/access and 30 days of email installation help
+for its added modules. Installation emails have a two-business-day first-reply
+target. The published pages describe the intended offer; accepting payment and
+fulfilling source access still require the release gates above.
