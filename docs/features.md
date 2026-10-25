@@ -1,6 +1,6 @@
 # Feature catalog and package scope
 
-[Back to the overview](../README.md) · [Licensing and access](licensing-and-access.md)
+[Back to the overview](../README.md) · [Technology stack and operations](technology-stack.md) · [Licensing and access](licensing-and-access.md)
 
 The commercial developer distribution is being prepared. This catalog records the scope of the intended first release. The reference product is the starting point; neutral extraction, plugin-contract acceptance, provider configuration, platform checks, and release validation remain necessary. The new tutorial is still to be implemented.
 
@@ -22,6 +22,12 @@ Full Platform inherits Core. Buyers implement their game's Java rules plugin, Fl
 | Original card-game integration tutorial | Yes | Yes | Planned example of private hands, deck state, turn validation, online Java, Flutter, and separate Dart offline rules/simple bot |
 
 Compatible rolling deployment is a system design property subject to version compatibility. The published local recovery recording does not replace an AWS rollout acceptance test or workload-specific capacity testing.
+
+## Engineering and operator characteristics
+
+The reference system also contains Flyway-managed SQL migrations with startup schema validation, Java 21 virtual-thread configuration, dependency-aware health probes, structured logs, CloudWatch alarms, protected Prometheus metrics, local Grafana dashboards, and backend CI coverage/vulnerability gates. Its AWS definitions include ECR image management, DNS/TLS, data-store options, secret injection, and storage/CDN modules.
+
+These are engineering characteristics of the inspected reference, with configuration and release-validation requirements. They do not create additional product-module entitlements. See the [stack and operations inventory](technology-stack.md) for versions, source boundaries, infrastructure options, and client/tooling details.
 
 ## Player accounts and communication
 

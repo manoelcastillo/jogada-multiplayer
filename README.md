@@ -3,7 +3,7 @@
 **Build your card game on a reusable Flutter + Java multiplayer foundation.**
 
 ![Client: Flutter](https://img.shields.io/badge/client-Flutter-02569B)
-![Backend: Java](https://img.shields.io/badge/backend-Java-37556E)
+![Backend: Java 21](https://img.shields.io/badge/backend-Java_21-37556E)
 ![State: Redis](https://img.shields.io/badge/state-Redis-B42318)
 ![Infrastructure: Terraform](https://img.shields.io/badge/infrastructure-Terraform-6246B5)
 ![License: Commercial](https://img.shields.io/badge/source-Commercial-475569)
@@ -14,7 +14,7 @@ The reference infrastructure powers [Jogada](https://jogada.com.br/), a live Bur
 
 **The commercial developer distribution is being prepared.** The package scopes and initial prices below describe the intended first licensed release. This public repository contains documentation and evaluation media; it does not contain the application implementation. Release contents and availability will be confirmed before purchase.
 
-[Watch the recovery demo](https://manoelcastillo.github.io/jogada-multiplayer/) · [Compare features](docs/features.md) · [Licensing and access](docs/licensing-and-access.md) · [Enquire by email](mailto:contato@jogada.com.br?subject=Jogada%20Multiplayer%20-%20Developer%20licensing)
+[Watch the recovery demo](https://manoelcastillo.github.io/jogada-multiplayer/) · [Compare features](docs/features.md) · [Technology stack](docs/technology-stack.md) · [Licensing and access](docs/licensing-and-access.md) · [Enquire by email](mailto:contato@jogada.com.br?subject=Jogada%20Multiplayer%20-%20Developer%20licensing)
 
 ## What you build
 
@@ -144,6 +144,31 @@ Read the [architecture and failure model](docs/architecture.md) for the distinct
 
 Read the [architecture and failure model](docs/architecture.md) for the details behind these boundaries.
 
+## Technology stack and operations
+
+The reference implementation includes database migrations, health checks, metrics, deployment controls, and build gates alongside the game runtime. These characteristics were checked against source and configuration on **25 October 2026**; the commercial release will identify its own supported versions and packaged tooling.
+
+| Technology or characteristic | Role in the reference system |
+| --- | --- |
+| **Java 21 + Spring Boot 3.5.16** | Authoritative backend using Spring MVC, Spring Security, REST, and WebSocket/STOMP |
+| **Java virtual threads** | Enabled for Spring's supported task execution and embedded Tomcat request handling |
+| **Flyway + JPA/Hibernate + HikariCP** | Versioned SQL migrations, schema validation at startup, and pooled PostgreSQL connections |
+| **PostgreSQL + Redis** | Persistent application records; external live match state with atomic version checks, move-ID deduplication, and cross-worker coordination |
+| **AWS ECS Fargate + ALB** | Configurable Java worker pool, HTTPS/WSS routing, readiness-based target checks, and target draining |
+| **Compatible rolling deployments** | Overlapping healthy capacity and an ECS deployment circuit breaker that rolls back revisions failing to become healthy |
+| **Terraform** | Infrastructure modules for networking, compute, data stores, DNS/TLS, storage/CDN, secrets integration, and alarms |
+| **CloudWatch + SNS** | Container logs, service/data-store alarms, and an operator-configured email alert channel |
+| **Actuator + Micrometer + Prometheus/Grafana** | Separate liveness/readiness probes, operational metrics, and local monitoring dashboards |
+| **Structured JSON logging** | Production stdout logs with HTTP/STOMP correlation context; deployed build identity exposed through Actuator |
+| **Spring Security + OpenAPI/Swagger** | Protected operator/API documentation surfaces, origin controls, and Redis-backed REST/STOMP rate limiting |
+| **Docker Compose + Traefik** | Local PostgreSQL/Redis, application containers, and multi-worker routing; multi-stage Java image builds |
+| **GitHub Actions + JaCoCo + Trivy** | Backend test/coverage and vulnerability gates; mobile build workflow; PostgreSQL integration tests use Testcontainers |
+| **Flutter + Riverpod + Dio** | Client state, transport, bounded reconnect/backoff, and presentation; ARB localization and replaceable themes/assets |
+
+The inspected client pins Flutter **3.47.2** in its mobile workflow and resolves Riverpod **2.6.1** from the `^2.5.1` constraint. Virtual threads do not establish a concurrency benchmark; worker count and database/Redis capacity still need workload-specific sizing.
+
+See the [complete stack and operations inventory](docs/technology-stack.md) for version sources, infrastructure options, client characteristics, and validation boundaries. Product module inclusion remains defined by the [Core/Full feature catalog](docs/features.md).
+
 ## First onboarding milestone
 
 The intended developer release includes a small original card-game tutorial showing private hands, deck state, turn validation, the Java plugin, and Flutter integration. It also includes a separate Dart offline implementation with a simple bot. The tutorial is a developer-release requirement; its implementation and acceptance checks are pending.
@@ -196,6 +221,7 @@ Buyers operate production by default. An ongoing operations arrangement may be c
 | Document | Purpose |
 | --- | --- |
 | [Feature catalog](docs/features.md) | Core/Full scope, customization, exclusions, and items under review |
+| [Technology stack and operations](docs/technology-stack.md) | Runtime versions, migrations, AWS services, observability, security controls, and engineering tooling |
 | [Architecture](docs/architecture.md) | Authority, shared state, fan-out, persistence, and failure boundaries |
 | [Local development](docs/local-development.md) | Onboarding sequence and reference workspace preview |
 | [Technical evaluation](docs/evaluation.md) | What to verify in a local or staging evaluation |

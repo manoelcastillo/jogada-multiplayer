@@ -2,6 +2,8 @@
 
 [Back to the overview](../README.md)
 
+For runtime versions, Flyway migrations, virtual threads, AWS services, health/metrics, and build tooling, see [Technology stack and operations](technology-stack.md).
+
 Jogada separates the player interface, online rule authority, live match state,
 and event delivery. This document describes the reference implementation, not a
 promise that the same performance or recovery behavior applies to every customization.
