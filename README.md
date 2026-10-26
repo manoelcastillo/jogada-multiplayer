@@ -141,12 +141,14 @@ Read the [architecture and failure model](docs/architecture.md) for the distinct
 - **Seamless reconnection.** Clients reconnect, restore subscriptions, and reconcile with current authoritative state while their match, seat, and session remain valid. Redis Pub/Sub provides live fan-out; recovery uses state reconciliation rather than durable Pub/Sub replay.
 - **Infrastructure as code.** Both packages include Terraform for the AWS deployment and Docker development tooling. Operators configure and pay for their own infrastructure and external services.
 - **A structured Flutter client.** Views, Riverpod `Notifier`/`NotifierProvider` controllers, repositories, and network adapters keep presentation and transport responsibilities explicit across Android, iOS, and Web/PWA.
+- **Error visibility from startup through gameplay.** Sentry integrations cover the Flutter client and Java backend, with stack traces, release/environment context, and filtered diagnostic breadcrumbs. Early-startup buffering and selected handled-error reporting help expose failures that would otherwise remain behind a friendly error screen.
+- **Product and operational measurement.** PostHog event instrumentation supports investigating player journeys and conversion, while CloudWatch, Actuator/Micrometer, and local Prometheus/Grafana tooling expose service health, errors, queues, and resource pressure. Product analytics belongs in Full Platform.
 
 Read the [architecture and failure model](docs/architecture.md) for the details behind these boundaries.
 
 ## Technology stack and operations
 
-The reference implementation includes database migrations, health checks, metrics, deployment controls, and build gates alongside the game runtime. These characteristics were checked against source and configuration on **25 October 2026**; the commercial release will identify its own supported versions and packaged tooling.
+The reference implementation includes database migrations, health checks, metrics, deployment controls, and build gates alongside the game runtime. These characteristics were checked against source and configuration on **25–26 October 2026**; the commercial release will identify its own supported versions and packaged tooling.
 
 | Technology or characteristic | Role in the reference system |
 | --- | --- |
@@ -160,6 +162,8 @@ The reference implementation includes database migrations, health checks, metric
 | **CloudWatch + SNS** | Container logs, service/data-store alarms, and an operator-configured email alert channel |
 | **Actuator + Micrometer + Prometheus/Grafana** | Separate liveness/readiness probes, operational metrics, and local monitoring dashboards |
 | **Structured JSON logging** | Production stdout logs with HTTP/STOMP correlation context; deployed build identity exposed through Actuator |
+| **Sentry** | Client/backend error reporting, startup diagnostics, supported native ANR capture, and release-aware investigation; performance tracing is currently disabled |
+| **PostHog** | Explicit client events and selected server-side business events, with platform/version context and configurable provider destinations; session replay is currently disabled |
 | **Spring Security + OpenAPI/Swagger** | Protected operator/API documentation surfaces, origin controls, and Redis-backed REST/STOMP rate limiting |
 | **Docker Compose + Traefik** | Local PostgreSQL/Redis, application containers, and multi-worker routing; multi-stage Java image builds |
 | **GitHub Actions + JaCoCo + Trivy** | Backend test/coverage and vulnerability gates; mobile build workflow; PostgreSQL integration tests use Testcontainers |
@@ -168,6 +172,22 @@ The reference implementation includes database migrations, health checks, metric
 The inspected client pins Flutter **3.47.2** in its mobile workflow and resolves Riverpod **2.6.1** from the `^2.5.1` constraint. Virtual threads do not establish a concurrency benchmark; worker count and database/Redis capacity still need workload-specific sizing.
 
 See the [complete stack and operations inventory](docs/technology-stack.md) for version sources, infrastructure options, client characteristics, and validation boundaries. Product module inclusion remains defined by the [Core/Full feature catalog](docs/features.md).
+
+## Error reporting, analytics, and monitoring
+
+Developers need to see failures and player friction across the application, alongside infrastructure health. The reference implementation supplies distinct signals for each question:
+
+| Question | Implemented visibility |
+| --- | --- |
+| What broke, and on which release? | **Sentry:** Flutter startup/framework/async and selected handled errors, supported native ANRs, and Java backend errors, with release/environment context |
+| Where do players stop progressing? | **PostHog:** explicit events for entry/login, onboarding, matchmaking, gameplay, reconnects, and purchase journeys; platform/version and attribution context |
+| What did the backend confirm? | Selected server-emitted checkout/payment/refund events and first-party reporting; a client checkout click is distinct from an authoritative payment outcome |
+| Is the service healthy? | **CloudWatch Logs/Alarms + SNS:** structured container logs, healthy targets, application errors/latency, compute/data-store pressure, and configured alert delivery |
+| Where is operational pressure building? | **Actuator/Micrometer + Prometheus/Grafana:** readiness, JVM/application measurements, STOMP channel and matchmaking metrics, with local dashboard provisioning |
+
+Crash and analytics adapters keep vendor SDKs behind interfaces. The client includes telemetry failure isolation, filtered properties, recognized-sensitive-value scrubbing, and product-analytics suppression controls. Provider accounts, sampling, retention, privacy settings, and release-specific validation remain operator configuration. The reference does not enable Sentry performance tracing or PostHog session replay.
+
+Read [Observability and analytics](docs/observability-and-analytics.md) for the signal-flow diagram, event families, privacy/control boundaries, and package scope.
 
 ## First onboarding milestone
 
@@ -222,6 +242,7 @@ Buyers operate production by default. An ongoing operations arrangement may be c
 | --- | --- |
 | [Feature catalog](docs/features.md) | Core/Full scope, customization, exclusions, and items under review |
 | [Technology stack and operations](docs/technology-stack.md) | Runtime versions, migrations, AWS services, observability, security controls, and engineering tooling |
+| [Observability and analytics](docs/observability-and-analytics.md) | Sentry, PostHog, first-party reports, signal flows, monitoring, and telemetry controls |
 | [Architecture](docs/architecture.md) | Authority, shared state, fan-out, persistence, and failure boundaries |
 | [Local development](docs/local-development.md) | Onboarding sequence and reference workspace preview |
 | [Technical evaluation](docs/evaluation.md) | What to verify in a local or staging evaluation |

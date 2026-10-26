@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1040" viewBox="0 0 1600 1040" font-family="Arial, Helvetica, sans-serif" fill="#14283d" role="img" aria-labelledby="title desc">
+  <title id="title">Jogada observability and analytics signal flows</title>
+  <desc id="desc">Flutter and Java report errors to Sentry and product events to PostHog. Java logs and AWS resource metrics feed CloudWatch logs and alarms, with configured SNS alert delivery. Actuator and Micrometer expose application measurements to local Prometheus and Grafana. These paths observe the system and do not supply authoritative gameplay state. Product analytics belongs in Full Platform.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M1 1 L8 4.5 L1 8" fill="none" stroke="#557087" stroke-width="1.6"/></marker>
+  </defs>
+  <rect width="1600" height="1040" rx="20" fill="#f5f8fc"/>
+  <text x="64" y="75" font-size="38px" font-weight="700">Errors, product behavior, and operational health</text>
+  <text x="64" y="120" font-size="24px" fill="#425e75">Separate signals alongside the authoritative multiplayer runtime.</text>
+  <text x="88" y="172" font-size="18px" font-weight="700" letter-spacing="1.5px" fill="#557087">PRODUCER</text>
+  <text x="560" y="172" font-size="18px" font-weight="700" letter-spacing="1.5px" fill="#557087">SIGNAL</text>
+  <text x="1090" y="172" font-size="18px" font-weight="700" letter-spacing="1.5px" fill="#557087">DESTINATION</text>
+
+  <g>
+    <rect x="64" y="196" width="440" height="136" rx="14" fill="#fff" stroke="#cad7e4" stroke-width="1.5"/>
+    <text x="88" y="240" font-size="29px" font-weight="700">Flutter + Java</text>
+    <text x="88" y="277" font-size="23px" fill="#425e75">Startup, runtime, selected</text>
+    <text x="88" y="307" font-size="23px" fill="#425e75">handled failures; native ANRs</text>
+    <path d="M504 264 H1060" fill="none" stroke="#557087" stroke-width="2.2" marker-end="url(#arrow)"/>
+    <text x="560" y="237" font-size="23px" fill="#425e75">Errors + filtered context</text>
+    <text x="560" y="294" font-size="20px" fill="#425e75">Release and environment metadata</text>
+    <rect x="1072" y="196" width="464" height="136" rx="14" fill="#f0ecfc" stroke="#cec3e8"/>
+    <text x="1096" y="243" font-size="29px" font-weight="700">Sentry</text>
+    <text x="1096" y="282" font-size="23px" fill="#425e75">Error investigation</text>
+    <text x="1096" y="312" font-size="20px" fill="#425e75">Performance tracing disabled</text>
+  </g>
+
+  <g>
+    <rect x="64" y="372" width="440" height="136" rx="14" fill="#fff" stroke="#cad7e4" stroke-width="1.5"/>
+    <text x="88" y="416" font-size="29px" font-weight="700">Flutter + selected Java paths</text>
+    <text x="88" y="453" font-size="23px" fill="#425e75">Player journeys and</text>
+    <text x="88" y="483" font-size="23px" fill="#425e75">server business outcomes</text>
+    <path d="M504 440 H1060" fill="none" stroke="#557087" stroke-width="2.2" marker-end="url(#arrow)"/>
+    <text x="560" y="413" font-size="23px" fill="#425e75">Explicit product events</text>
+    <text x="560" y="470" font-size="20px" fill="#425e75">Platform/version and attribution context</text>
+    <rect x="1072" y="372" width="464" height="136" rx="14" fill="#e8f4ef" stroke="#bfded0"/>
+    <text x="1096" y="419" font-size="29px" font-weight="700">PostHog</text>
+    <text x="1096" y="458" font-size="23px" fill="#425e75">Product analytics · Full Platform</text>
+    <text x="1096" y="488" font-size="20px" fill="#425e75">Session replay disabled</text>
+  </g>
+
+  <g>
+    <rect x="64" y="548" width="440" height="136" rx="14" fill="#fff" stroke="#cad7e4" stroke-width="1.5"/>
+    <text x="88" y="592" font-size="29px" font-weight="700">Java + AWS services</text>
+    <text x="88" y="629" font-size="23px" fill="#425e75">Container stdout; ALB, ECS,</text>
+    <text x="88" y="659" font-size="23px" fill="#425e75">RDS and Redis measurements</text>
+    <path d="M504 616 H1060" fill="none" stroke="#557087" stroke-width="2.2" marker-end="url(#arrow)"/>
+    <text x="560" y="589" font-size="23px" fill="#425e75">JSON logs + resource metrics</text>
+    <text x="560" y="646" font-size="20px" fill="#425e75">Configured retention and alarm thresholds</text>
+    <rect x="1072" y="548" width="464" height="136" rx="14" fill="#edf2fb" stroke="#c5d4ed"/>
+    <text x="1096" y="595" font-size="29px" font-weight="700">CloudWatch → SNS</text>
+    <text x="1096" y="634" font-size="23px" fill="#425e75">Logs, alarms and alert delivery</text>
+    <text x="1096" y="664" font-size="20px" fill="#425e75">Operator-owned account and subscriptions</text>
+  </g>
+
+  <g>
+    <rect x="64" y="724" width="440" height="136" rx="14" fill="#fff" stroke="#cad7e4" stroke-width="1.5"/>
+    <text x="88" y="768" font-size="29px" font-weight="700">Java application</text>
+    <text x="88" y="805" font-size="23px" fill="#425e75">Actuator / Micrometer</text>
+    <text x="88" y="835" font-size="23px" fill="#425e75">JVM, queues and STOMP signals</text>
+    <path d="M504 792 H1060" fill="none" stroke="#557087" stroke-width="2.2" marker-end="url(#arrow)"/>
+    <text x="560" y="765" font-size="23px" fill="#425e75">Protected metrics endpoint</text>
+    <text x="560" y="822" font-size="20px" fill="#425e75">Local scrape and dashboard provisioning</text>
+    <rect x="1072" y="724" width="464" height="136" rx="14" fill="#fff" stroke="#cad7e4" stroke-width="1.5"/>
+    <text x="1096" y="771" font-size="29px" font-weight="700">Prometheus + Grafana</text>
+    <text x="1096" y="810" font-size="23px" fill="#425e75">Local operational monitoring</text>
+    <text x="1096" y="840" font-size="20px" fill="#425e75">Separate from product reporting</text>
+  </g>
+
+  <rect x="64" y="908" width="1472" height="76" rx="12" fill="#e9eef4"/>
+  <text x="88" y="940" font-size="20px" fill="#425e75">Client/server policies and provider privacy settings require alignment. Accounts and service costs belong to the operator.</text>
+  <text x="88" y="969" font-size="20px" fill="#425e75">First-party product reports also use application records/aggregation; the telemetry paths above are not a durable event ledger.</text>
+</svg>

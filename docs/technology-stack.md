@@ -2,6 +2,8 @@
 
 [Back to the overview](../README.md) · [Architecture](architecture.md) · [Core/Full features](features.md)
 
+See [Observability and analytics](observability-and-analytics.md) for the detailed Sentry/PostHog integrations, event families, signal-flow diagram, and control boundaries. That integration review was added on 26 October 2026 against the same source snapshots below.
+
 This inventory describes the reference system's implementation and infrastructure definitions, inspected on **25 October 2026**. It complements the product feature catalog with the details relevant to operating, extending, and evaluating the software.
 
 Source snapshots: server `0fc65815aac2f0c38f9349c3705b62fa1d49d360` and client `9647660a89b2d813981837460f3cee0607950eb2`, also identified in the [recovery evaluation](recovery-evaluation.md). Source/configuration inspection establishes the characteristics below; it does not establish that every optional service is enabled in the live environment or validated in the commercial package. That package is being prepared, and its release manifest will identify supported versions, delivered modules, and acceptance evidence.
@@ -68,9 +70,14 @@ Worker count can be changed independently of game count. The inspected Terraform
 | Micrometer and Prometheus | JVM/application instrumentation is exposed through protected Actuator metrics and Prometheus endpoints. The reference includes matchmaking timers and operational game/queue measurements. |
 | Local Grafana dashboards | Docker Compose and provisioned Prometheus/Grafana configuration provide a local monitoring path. They are distinct from a managed production monitoring service. |
 | Optional access logs | ALB and web-CDN modules include configurable access-log delivery/retention. Operators choose enablement, destinations, access controls, and retention for their environment. |
-| Client diagnostics | The Flutter crash-reporting abstraction includes a Sentry adapter and scrubbing of recognized sensitive values and breadcrumb data. Buyer-owned destinations and privacy settings must be configured and verified. |
+| Sentry client diagnostics | Flutter startup/framework/async and selected handled errors, bounded pre-initialization buffering, supported native ANR reporting, release/environment metadata, and scrubbed lifecycle/route-template breadcrumbs. Automatic screenshots and performance tracing are disabled; native/browser provider settings still require review. |
+| Sentry backend diagnostics | Spring Boot error integration with stack traces, environment configuration, build-aware release metadata and filtering of expected domain errors. The inspected configuration is errors-only, with performance tracing disabled. |
+| PostHog product events | Flutter event instrumentation and selected Java business-event emitters provide product-journey/conversion signals with configured identities and metadata. Client events carry platform/version/build context; Full Platform owns the product analytics scope. Session replay is disabled on native and web. |
+| First-party analytics reports | Backend records and aggregation power activity, retention/cohort, acquisition and conversion admin views independently of the PostHog UI. Buyer-specific events, data inputs and reporting extraction still require acceptance. |
 
 Operational health/metrics are separate from Full Platform's player activity, retention, and acquisition reports. CloudWatch and local dashboards do not make product analytics a Core entitlement.
+
+Product analytics uses explicit event definitions, client opt-out/operator suppression controls, batching and vendor adapters. Selected conversion events can also reach platform-specific Firebase Analytics/GA4 integrations with narrower property allowlists. Provider policy alignment across client/server, privacy settings, and supported integrations must be verified for the release. The presence of a PostHog SDK does not establish delivered session replay, PostHog-based feature flags, surveys, or experiments.
 
 ## API and security controls
 

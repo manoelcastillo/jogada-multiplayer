@@ -72,6 +72,8 @@ success is not a substitute for exercising billing.
 
 ## Evidence to request
 
+Include [observability and analytics checks](observability-and-analytics.md#release-evaluation-checks) in the evaluation: a controlled error with the correct release/environment, representative product events, operational metric/alert visibility, and telemetry suppression/failure behavior. Configure test-only destinations; avoid sending evaluation traffic to the reference game's provider projects.
+
 | Evidence | What it should establish |
 | --- | --- |
 | Live product | The player experience in an operating game |

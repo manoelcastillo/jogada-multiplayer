@@ -15,6 +15,8 @@ Full Platform inherits Core. Buyers implement their game's Java rules plugin, Fl
 | PostgreSQL application persistence | Yes | Yes | Distinct from live match state; game-specific records need integration |
 | Lobbies, matchmaking, and individual private matches | Yes | Yes | Match rules and permitted configurations belong to the game's implementation |
 | Connection recovery and match resumption | Yes | Yes | Recovery requires valid match/seat/session and compatible state/protocols |
+| Client/backend error-reporting integration | Yes | Yes | Sentry configuration, release context and diagnostic adapters; buyer-owned projects and release-specific privacy/platform verification |
+| Operational health, logs, metrics, and infrastructure alerts | Yes | Yes | Actuator/Micrometer, CloudWatch/SNS and local Prometheus/Grafana tooling; operator configures thresholds, retention, accounts and destinations |
 | Flutter/Riverpod foundation for Android, iOS, Web/PWA | Yes | Yes | Buyer builds game-specific screens and configures each platform |
 | Reusable components, animation/theme primitives, starter assets and editable files | Yes | Yes | Approved neutral assets and workflow documentation; no Jogada branding or custom design service |
 | Local Docker tooling | Yes | Yes | Initial dependencies/images must be downloaded; optional external integrations need their own configuration |
@@ -25,9 +27,11 @@ Compatible rolling deployment is a system design property subject to version com
 
 ## Engineering and operator characteristics
 
-The reference system also contains Flyway-managed SQL migrations with startup schema validation, Java 21 virtual-thread configuration, dependency-aware health probes, structured logs, CloudWatch alarms, protected Prometheus metrics, local Grafana dashboards, and backend CI coverage/vulnerability gates. Its AWS definitions include ECR image management, DNS/TLS, data-store options, secret injection, and storage/CDN modules.
+The reference system also contains Flyway-managed SQL migrations with startup schema validation, Java 21 virtual-thread configuration, Sentry error-reporting integrations, dependency-aware health probes, structured logs, CloudWatch alarms, protected Prometheus metrics, local Grafana dashboards, and backend CI coverage/vulnerability gates. Its AWS definitions include ECR image management, DNS/TLS, data-store options, secret injection, and storage/CDN modules.
 
 These are engineering characteristics of the inspected reference, with configuration and release-validation requirements. They do not create additional product-module entitlements. See the [stack and operations inventory](technology-stack.md) for versions, source boundaries, infrastructure options, and client/tooling details.
+
+Sentry covers startup, framework/async and selected handled client errors, supported native ANRs, and backend errors. PostHog instrumentation and first-party product reports support investigation of player journeys, engagement and conversion in Full Platform. See [Observability and analytics](observability-and-analytics.md) for event families, data flow, provider configuration and controls. Error/operational diagnostics do not move Full's player analytics into Core.
 
 ## Player accounts and communication
 
@@ -54,7 +58,8 @@ These are engineering characteristics of the inspected reference, with configura
 | Stripe web/PWA billing workflows | — | Yes | Provider accounts, products, webhook configuration, and sandbox acceptance required |
 | Native IAP integration | — | Yes | Google Play Billing / Apple StoreKit workflows with buyer-owned store configuration and release verification |
 | Billing entitlements and related operator workflows | — | Yes | Adapt product/trial/paywall rules to the buyer's business model |
-| Product analytics: activity, retention/cohorts, acquisition reports | — | Yes | Configure game events and external acquisition/spend inputs; no assumed automatic advertising integration |
+| Product analytics: activity, retention/cohorts, acquisition reports | — | Yes | PostHog event instrumentation and first-party reporting; configure game events and external acquisition/spend inputs; no assumed automatic advertising integration |
+| Player-journey and conversion instrumentation | — | Yes | Entry, onboarding, matchmaking, gameplay, reconnect and purchase event families; buyer adapts game-specific events and provider configuration |
 
 The prebuilt financial scope is IAP and Stripe for the existing billing workflows. A wagering wallet, financial ledger, deposits, withdrawals, and wager settlement are not supplied by those integrations. Other financial functionality is implemented/integrated by the buyer or separately commissioned.
 

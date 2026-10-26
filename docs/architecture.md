@@ -3,6 +3,7 @@
 [Back to the overview](../README.md)
 
 For runtime versions, Flyway migrations, virtual threads, AWS services, health/metrics, and build tooling, see [Technology stack and operations](technology-stack.md).
+For Sentry, PostHog, first-party reports, and monitoring signal flows, see [Observability and analytics](observability-and-analytics.md).
 
 Jogada separates the player interface, online rule authority, live match state,
 and event delivery. This document describes the reference implementation, not a
@@ -140,6 +141,24 @@ restores the current valid state; it does not promise to pause the game.
 Standalone single-player play uses a local Dart engine and local bots. It does not
 depend on a running Java service. That local authority is confined to offline play;
 local results are not treated as authoritative multiplayer state.
+
+## Observability and product analytics
+
+Error reports, product events, and operational measurements have separate paths alongside gameplay. They help diagnose a failure, understand a player's journey, or assess capacity; they do not replace authoritative match state or decide whether a move committed.
+
+![Observability signal flows from Flutter, Java, and AWS services to Sentry, PostHog, CloudWatch/SNS, and local Prometheus/Grafana](../assets/observability.svg)
+
+| Signal | Producer and destination | Architectural boundary |
+| --- | --- | --- |
+| Errors and diagnostic breadcrumbs | Flutter crash adapter and Java Sentry integration → Sentry | Release/environment context, selected handled/uncaught errors, startup diagnostics and supported native ANRs; performance tracing disabled in the inspected configuration |
+| Player behavior and conversion | Flutter analytics adapter and selected Java business-event emitters → PostHog | Explicit event contracts and platform/version context; product analytics is Full Platform scope; session replay disabled |
+| First-party product reports | Application telemetry/business records → backend reporting and Full admin views | Retention/cohort, activity, acquisition and conversion reporting use their own stored records/aggregation; they are not embedded PostHog dashboards |
+| Service logs and AWS alarms | Java stdout and AWS resource metrics → CloudWatch; configured alarm actions → SNS | Log/metric retention, thresholds, subscriptions and account configuration belong to the operator |
+| Application metrics | Actuator/Micrometer → protected Prometheus endpoint → local Prometheus/Grafana | Readiness and operational instrumentation are distinct from player-level product analytics |
+
+Client `CrashSink` and `AnalyticsSink` interfaces isolate SDKs from application features. The PostHog adapter guards optional telemetry failures; server analytics is best-effort asynchronous delivery. Product telemetry is not a durable purchase ledger or a transactional event outbox.
+
+Client opt-out and an operator kill switch suppress configured product analytics. Server-side business-event policy and native/browser crash SDKs have separate paths, so the release must verify policy alignment and provider-side privacy settings rather than infer blanket suppression from one client toggle. The [detailed guide](observability-and-analytics.md) records these boundaries and evaluation checks.
 
 ## Scope
 
